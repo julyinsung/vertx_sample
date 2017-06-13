@@ -18,8 +18,6 @@ public class MongodbpersisterVerticle extends AbstractVerticle {
 		config.put("host", "localhost");
 		config.put("port", 27017);
 
-		System.out.println(">>>  ");
-		
 		MongoClient mongoClient = MongoClient.createShared(vertx, config);
 		
 		JsonObject document = new JsonObject().put("title", "The Hobbit");

@@ -18,6 +18,12 @@
 			<version>3.4.1</version>
 		</dependency>
 		
+		<dependency>
+		  <groupId>io.vertx</groupId>
+		  <artifactId>vertx-web</artifactId>
+		  <version>3.4.1</version>
+		</dependency>
+		
 		<!-- MongoDB Async Driver http://mongodb.github.io/mongo-java-driver/3.2/driver-async/getting-started/installation-guide/ -->
 		<dependency>
 			<groupId>org.mongodb</groupId>
