@@ -30,17 +30,16 @@ public class WebVerticle extends AbstractVerticle {
 		Router router = Router.router(vertx);
 		router.route().handler(BodyHandler.create());
 		router.route().consumes("application/json").produces("application/json");
-
-		router.get("/book/title/:title").handler(this::handleGet);
-		router.put("/book/title").handler(this::handlePut);
+		
+		router.get("/book/title/:title").handler(this::handlerGet);
+		router.put("/book/title").handler(this::handlerPut);
 
 		eb = vertx.eventBus();
-		
 		vertx.deployVerticle("vertx.mongo.sample.MongodbpersisterVerticle");
 		vertx.createHttpServer().requestHandler(router::accept).listen(8080);
 	}
 
-	public void handleGet(RoutingContext routingContext) {
+	public void handlerGet(RoutingContext routingContext) {
 		String title = routingContext.request().getParam("title");
 		eb.send("db.get", title, ar -> {
 			if (ar.succeeded()) {
@@ -49,7 +48,7 @@ public class WebVerticle extends AbstractVerticle {
 		});
 	}
 
-	public void handlePut(RoutingContext routingContext) {
+	public void handlerPut(RoutingContext routingContext) {
 		JsonObject pJo = routingContext.getBodyAsJson();
 		String title = pJo.getString("title");
 
@@ -59,7 +58,7 @@ public class WebVerticle extends AbstractVerticle {
 			}
 		});
 	}
-	
+
 	private void response(RoutingContext routingContext, AsyncResult<Message<Object>> ar) {
 		System.out.println("Received reply: " + ar.result().body());
 		HttpServerResponse response = routingContext.response();

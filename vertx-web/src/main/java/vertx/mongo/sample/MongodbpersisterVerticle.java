@@ -16,13 +16,13 @@ import io.vertx.ext.mongo.MongoClient;
 public class MongodbpersisterVerticle extends AbstractVerticle {
 
 	MongoClient mongoClient = null;
-
+	
 	@Override
 	public void start() {
-		JsonObject config = new JsonObject();
-		config.put("host", "localhost");
-		config.put("port", 27017);
-		mongoClient = MongoClient.createShared(vertx, config);
+		
+		mongoClient = MongoClient.createShared(vertx, 
+				new JsonObject().put("host", "localhost")
+				.put("port", 27017));
 
 		EventBus eb = vertx.eventBus();
 		eb.consumer("db.get", handlerGet());
