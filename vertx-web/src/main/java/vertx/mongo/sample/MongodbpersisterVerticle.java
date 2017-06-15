@@ -32,7 +32,6 @@ public class MongodbpersisterVerticle extends AbstractVerticle {
 	private Handler<Message<String>> handlerPut() {
 		return message -> {
 			String title = message.body();
-
 			JsonObject document = new JsonObject().put("title", title);
 
 			mongoClient.save("books", document, res -> {
@@ -51,6 +50,7 @@ public class MongodbpersisterVerticle extends AbstractVerticle {
 	private Handler<Message<JsonObject>> handlerGet() {
 		return message -> {
 			JsonObject query = new JsonObject();
+			
 			mongoClient.find("books", query, res -> {
 				if (res.succeeded()) {
 					JsonObject js = new JsonObject();

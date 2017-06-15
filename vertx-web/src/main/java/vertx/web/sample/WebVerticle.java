@@ -31,16 +31,24 @@ public class WebVerticle extends AbstractVerticle {
 		router.route().handler(BodyHandler.create());
 		router.route().consumes("application/json").produces("application/json");
 		
-		router.get("/book/title/:title").handler(this::handlerGet);
+		// url 매핑
+		router.get("/book").handler(this::handlerGet);
 		router.put("/book/title").handler(this::handlerPut);
 
+		// event bus
 		eb = vertx.eventBus();
+
+		// 다른 verticle를 deploy한다.
 		vertx.deployVerticle("vertx.mongo.sample.MongodbpersisterVerticle");
+		
+		// http 서버를 띄운다.
 		vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+		
 	}
 
 	public void handlerGet(RoutingContext routingContext) {
 		String title = routingContext.request().getParam("title");
+		
 		eb.send("db.get", title, ar -> {
 			if (ar.succeeded()) {
 				response(routingContext, ar);
