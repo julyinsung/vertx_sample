@@ -32,7 +32,7 @@ public class WebVerticle extends AbstractVerticle {
 		router.route().consumes("application/json").produces("application/json");
 		
 		router.get("/book/title/:title").handler(this::handlerGet);
-		router.put("/book/title").handler(this::handlerPut); 
+		router.put("/book/title").handler(this::handlerPut);
 
 		eb = vertx.eventBus();
 		vertx.deployVerticle("vertx.mongo.sample.MongodbpersisterVerticle");
