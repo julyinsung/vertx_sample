@@ -30,12 +30,10 @@ public class WebVerticle extends AbstractVerticle {
 		Router router = Router.router(vertx);
 		router.route().handler(BodyHandler.create());
 		router.route().consumes("application/json").produces("application/json");
-
 		router.get("/book/title/:title").handler(this::handleGet);
 		router.put("/book/title").handler(this::handlePut);
 
 		eb = vertx.eventBus();
-		
 		vertx.deployVerticle("vertx.mongo.sample.MongodbpersisterVerticle");
 		vertx.createHttpServer().requestHandler(router::accept).listen(8080);
 	}
@@ -59,7 +57,7 @@ public class WebVerticle extends AbstractVerticle {
 			}
 		});
 	}
-	
+
 	private void response(RoutingContext routingContext, AsyncResult<Message<Object>> ar) {
 		System.out.println("Received reply: " + ar.result().body());
 		HttpServerResponse response = routingContext.response();
