@@ -27,9 +27,11 @@ public class WebVerticle extends AbstractVerticle {
 
 	@Override
 	public void start() {
+		// router를 생성한다. router에 여러 설정을 할 수 있다.
 		Router router = Router.router(vertx);
 		router.route().handler(BodyHandler.create());
-		router.route().consumes("application/json").produces("application/json");
+		//router.route().handler(BodyHandler.create().setBodyLimit(1));
+		//router.route().consumes("application/json").produces("application/json");
 		
 		// url 매핑
 		router.get("/book").handler(this::handlerGet);
