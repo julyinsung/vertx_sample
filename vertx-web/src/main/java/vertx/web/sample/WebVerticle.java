@@ -11,7 +11,7 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 
 /**
- * vertx web, mongo-client, eventBus 사용한 예제
+ * vertx web, mongo-client, eventBus를 이용한 예제
  * 
  * 메뉴얼 참조 http://vertx.io/docs/vertx-web/java/
  * 
